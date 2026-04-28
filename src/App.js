@@ -15,7 +15,8 @@ function App() {
   return (
    <div >
     <Router>
-     <Routes>
+     <Routes>              
+                           <Route element={<HomePage />} path="/" /> 
                            <Route element={<AdminLogin/>} path="/adminlogin"></Route>
                            <Route element={<DashBoard/>} path="/dashboard/*"></Route>
                            <Route element={<HomePage/>} path="/homepage"></Route>
