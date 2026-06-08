@@ -28,9 +28,14 @@ import MainBanner from '../mainbanner/MainBanner';
 import Adoffer from '../adoffer/Adoffer';
 import BankOffer from '../bankoffer/BankOffer' 
 import { Route,Routes ,useNavigate} from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
 export default function DashBoard() {
- var navigate=useNavigate()
+var navigate=useNavigate()
+const dispatch = useDispatch();
+const handleLogout = () => {
+  dispatch({ type: 'ADD_USER', payload: [null, {}] });
+  navigate('/login');
+};
     return(
  <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -39,7 +44,7 @@ export default function DashBoard() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             QuickComm
           </Typography>
-          <Button color="inherit">LOGOUT</Button>
+          <Button color="inherit" onClick={handleLogout}>LOGOUT</Button>
         </Toolbar>
       </AppBar>
       <div>

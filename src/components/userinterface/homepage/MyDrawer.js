@@ -1,4 +1,5 @@
 import {useState,useEffect} from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import { postData,getData,serverURL } from '../../../services/FetchNodeAdminServices';
@@ -10,6 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 export default function MyDrawer(props) {
     const [category,setCategory]=useState([])
+    const dispatch = useDispatch();
        useEffect(function(){
         fetchAllCategory()
     },[])
@@ -42,16 +44,19 @@ export default function MyDrawer(props) {
       </List>
       <Divider />
       <List>
-        
-          <ListItem >
-            <ListItemButton>
-              <ListItemIcon>
+        <ListItem>
+          <ListItemButton onClick={() => {
+            if (window.confirm('Are you sure you want to logout?')) {
+              dispatch({ type: 'ADD_USER', payload: [null, {}] });
+              window.location.href = '/login';
+            }
+          }}>
+            <ListItemIcon>
               <img src={'/check-out.png'} style={{width:40,height:40}} />
-              </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </ListItemButton>
-          </ListItem>
-
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );

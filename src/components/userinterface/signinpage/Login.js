@@ -16,10 +16,10 @@ export default function Login()
 {
     const[phonenumber,setPhoneNumber]=useState('')
     var navigate=useNavigate()
-    const fetchSmsApi=async(genOtp)=>
-    {
-   var response=await postData('smsapi/sendotp',{otp:generatePath,mobileno:phonenumber})
-    }
+        const fetchSmsApi=async(genOtp)=>
+        {
+            var response=await postData('smsapi/sendotp',{otp:genOtp,mobileno:phonenumber})
+        }
 
     const handleNextPage=()=>{
     const genOtp=parseInt(Math.random()*89999)+10000

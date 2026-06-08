@@ -7,17 +7,15 @@ import { useLocation,useNavigate } from 'react-router-dom';
 import { postData } from '../../../services/FetchNodeAdminServices';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function Otp(){
 
+export default function Otp(){
     const [otp,setOtp] = useState('')
     const [loading,setLoading] = useState(false)
-
     const location = useLocation()
     const mobileno = location?.state?.phonenumber
-
+    const [generatedOtp, setGeneratedOtp] = useState(location?.state?.genOtp)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
     var cartData = useSelector((state)=>state.cart)
     var user = useSelector((state)=>state.user)
 
@@ -28,51 +26,39 @@ export default function Otp(){
 
     // ✅ VERIFY OTP (backend)
     const handleVerify = async () => {
-
         if (otp.length < 4) {
             alert("Enter valid OTP")
             return
         }
-
         setLoading(true)
-
-        const result = await postData('userinterface/verify_otp', {
-            mobileno,
-            otp
-        });
-
-        if (result.status) {
-
+        // Frontend-only OTP check
+        if (otp === String(generatedOtp)) {
+            // Simulate successful backend verification
             var response = await postData('userinterface/check_user_mobileno',{mobileno})
-
             if(response.status){
-
                 dispatch({type:"ADD_USER",payload:[response?.data.userid,response?.data]})
-
                 var res = await postData('userinterface/check_user_address',{userid:response?.data.userid})
-
                 if(res.status){
                     var userDataWithAddress = {...response?.data,...res?.data[0]}
                     dispatch({type:"ADD_USER",payload:[response.data.userid,userDataWithAddress]})
                 }
-
                 navigate('/cartdisplaypage')
-
             } else {
                 navigate("/setup",{state:{mobileno}})
             }
-
         } else {
             alert("Invalid OTP")
         }
-
         setLoading(false)
     }
 
     // ✅ RESEND OTP
     const handleResend = async () => {
-        await postData('userinterface/send_otp', { mobileno });
-        alert("OTP Resent Successfully")
+        // Generate new OTP
+        const newOtp = parseInt(Math.random()*89999)+10000;
+        setGeneratedOtp(newOtp);
+        alert(newOtp);
+        await postData('userinterface/send_otp', { mobileno, otp: newOtp });
     }
 
     return(

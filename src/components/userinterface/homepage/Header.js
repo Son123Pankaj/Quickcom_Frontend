@@ -49,7 +49,7 @@ var cartData=useSelector(state=>state.cart)
                   <Typography  onClick={()=>navigate('/HomePage')} variant="h6" component="div" style={{cursor:'pointer',display:'flex', alignItems:'center' }}>
                     <img src={logo} style={{width:70,height:70}}/>
                     <div style={{fontSize:22,fontWeight:"bold",letterSpacing:-0.5}}>
-                  QuickCom
+                  QuickCom Design  by Pankaj Sharma 
                   </div>
                   </Typography>
                   {matches?<TextBoxSearch/>:<div></div>}
@@ -73,7 +73,13 @@ var cartData=useSelector(state=>state.cart)
                     sx={{ mr: 2 }}
                   >
                   <div></div> <AccountCircleIcon style={{fontSize:30}} />
-                  {userData?.length==0?<div style={{marginLeft:5,fontWeight:'bold',fontSize:16}}>Sign In</div>:<div style={{marginLeft:5,fontWeight:'bold',fontSize:16}}>{userData[0]?.firstname}</div>}
+                  {userData?.length==0?
+                    <div style={{marginLeft:5,fontWeight:'bold',fontSize:16,cursor:'pointer'}} onClick={()=>navigate('/login')}>
+                      Sign In
+                    </div>
+                    :
+                    <div style={{marginLeft:5,fontWeight:'bold',fontSize:16}}>{userData[0]?.firstname}</div>
+                  }
                   </IconButton>:<div></div>}
                   
                   </div>
