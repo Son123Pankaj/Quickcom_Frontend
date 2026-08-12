@@ -49,7 +49,7 @@ var cartData=useSelector(state=>state.cart)
                   <Typography  onClick={()=>navigate('/HomePage')} variant="h6" component="div" style={{cursor:'pointer',display:'flex', alignItems:'center' }}>
                     <img src={logo} style={{width:70,height:70}}/>
                     <div style={{fontSize:22,fontWeight:"bold",letterSpacing:-0.5}}>
-                  QuickCom Design  by Pankaj Sharma 
+                  QuickCom
                   </div>
                   </Typography>
                   {matches?<TextBoxSearch/>:<div></div>}
