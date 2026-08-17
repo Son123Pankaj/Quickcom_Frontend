@@ -1,5 +1,5 @@
 import axios from 'axios'
-const serverURL='http://localhost:5000'
+const serverURL='https://quickcom-backend-z27h.vercel.app'
 const currentDate=()=>{
   var d=new Date()
   var cd=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()
